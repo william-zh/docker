@@ -66,6 +66,20 @@ for arg in $*; do
         gradle :changelog:distDocker
     fi
 
+    if [ $arg = "email" ]; then
+        docker rm api_email_1
+        docker rmi java/email
+        cd java
+        gradle :email:distDocker
+    fi
+
+    if [ $arg = "migrations" ]; then
+        docker rm api_migrations_1
+        docker rmi java/migrations
+        cd java
+        gradle :migrations:distDocker
+    fi
+
     if [ $arg = "rcash" ]; then
         docker rm api_rcash_1
         docker rmi java/rcash
@@ -76,12 +90,6 @@ for arg in $*; do
     if [ $arg = "pull_mysql" ]; then
         docker pull quay.io/honestbuildings/hb_mysql
     fi
-
-    if [ $arg = "changelog-man" ]; then
-        cd java/services/changelog/build/docker 
-        docker build -t java/changelog .
-    fi  
-
 done
 
 docker-compose up -d
