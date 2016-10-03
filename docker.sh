@@ -63,28 +63,30 @@ for arg in $*; do
         docker rm api_changelog_1
         docker rmi java/changelog
         cd java
-        gradle :changelog:distDocker
+        ./gradlew changelog:distDocker
     fi
 
     if [ $arg = "email" ]; then
         docker rm api_email_1
         docker rmi java/email
         cd java
-        gradle :email:distDocker
+        ./gradlew email:distDocker
     fi
 
     if [ $arg = "migrations" ]; then
         docker rm api_migrations_1
         docker rmi java/migrations
         cd java
-        gradle :migrations:distDocker
+        ./gradlew migrations:clean
+        ./gradlew migrations:jar
+        ./gradlew migrations:distDocker
     fi
 
     if [ $arg = "rcash" ]; then
         docker rm api_rcash_1
         docker rmi java/rcash
         cd java
-        gradle :rcash:distDocker
+        ./gradlew rcash:distDocker
     fi
 
     if [ $arg = "pull_mysql" ]; then
@@ -94,5 +96,3 @@ done
 
 docker-compose up -d
 osascript -e 'display notification "dockdock has completed... restarting containers" with title "dockdock"'
-
-
