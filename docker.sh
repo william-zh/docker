@@ -3,7 +3,7 @@
 usage ()
 {
     echo "dockdock [OPTIONS]"
-    echo "OPTIONS = changelog, changelog-man, mysql, debug, build_api dangling, flywayInfo, flywayMigrate, pull_mysql"
+    echo "OPTIONS = debug, build_api, dangling, flywayInfo, flywayMigrate, mysql, changelog, migrations, rcash, pull_mysql" 
     exit
 }
 
@@ -38,13 +38,13 @@ for arg in $*; do
 
     if [ $arg = "flywayInfo" ]; then
        cd java
-       gradle migrations:flywayInfo
+       ./gradlew migrations:flywayInfo
        exit
     fi
 
     if [ $arg = "flywayMigrate" ]; then
        cd java
-       gradle migrations:flywayMigrate
+       ./gradlew migrations:flywayMigrate
        exit
     fi
 
